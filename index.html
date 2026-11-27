@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falron Shop</title>
+    <!-- 1. Подключаем официальный скрипт Telegram для Mini App -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+            background-color: var(--tg-theme-bg-color); /* Цвет фона темы Telegram */
+            color: var(--tg-theme-text-color); /* Цвет текста темы Telegram */
+        }
+        .container { max-width: 600px; margin: 0 auto; text-align: center; }
+        h1 { font-size: 24px; }
+        .product-card {
+            background: var(--tg-theme-secondary-bg-color);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .product-card button {
+            background-color: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Добро пожаловать в FALRON!</h1>
+        <p>Здесь будет наш каталог. (Пока это тест)</p>
+
+        <div class="product-card">
+            <span>Черная футболка</span>
+            <button onclick="addToCart('Футболка')">Купить</button>
+        </div>
+        <div class="product-card">
+            <span>Серое худи</span>
+            <button onclick="addToCart('Худи')">Купить</button>
+        </div>
+    </div>
+
+    <script>
+        // 2. Инициализируем Mini App
+        const tg = window.Telegram.WebApp;
+        tg.ready(); // Сообщаем Telegram, что приложение готово
+        tg.expand(); // Разворачиваем на весь экран
+
+        // 3. Функция, которая будет вызываться при нажатии кнопки "Купить"
+        function addToCart(productName) {
+            // Отправляем данные обратно в бота
+            tg.sendData(JSON.stringify({ action: 'add_to_cart', product: productName }));
+            // Закрываем Mini App (опционально)
+            // tg.close();
+        }
+    </script>
+</body>
+</html>
