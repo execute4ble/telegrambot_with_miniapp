@@ -91,6 +91,8 @@ let cart = JSON.parse(localStorage.getItem('falron_cart')) || [];
 function addToCart(productName) {
     tg.HapticFeedback.impactOccurred('success');
     
+    tg.sendData(JSON.stringify({ action: 'add_to_cart', product: productName }));
+
     // Добавляем товар в массив
     cart.push(productName);
     
