@@ -114,3 +114,15 @@ function sendFeedback() {
 
 // Инициализация (показываем все товары при загрузке)
 renderProducts('all');
+
+// --- СКРЫТИЕ ЛОАДЕРА ---
+// Ждем, пока загрузятся все картинки и элементы страницы
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    loader.classList.add('hidden'); // Плавно скрываем
+    
+    // Полностью удаляем элемент из DOM через 500мс (после завершения анимации)
+    setTimeout(() => {
+        loader.remove();
+    }, 500);
+});
