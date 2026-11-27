@@ -85,11 +85,24 @@ function filterCategory(category) {
     renderProducts(category);
 }
 
-// Кнопка купить
+// Создаем массив для корзины (или берем его из памяти телефона, если он там уже есть)
+let cart = JSON.parse(localStorage.getItem('falron_cart')) || [];
+
 function addToCart(productName) {
     tg.HapticFeedback.impactOccurred('success');
-    tg.sendData(JSON.stringify({ action: 'add_to_cart', product: productName }));
-    alert(productName + " добавлена в корзину!");
+    
+    // Добавляем товар в массив
+    cart.push(productName);
+    
+    // Сохраняем в память телефона (чтобы не потерялось при закрытии)
+    localStorage.setItem('falron_cart', JSON.stringify(cart));
+    
+    // Показываем всплывающее уведомление внизу экрана (без остановки)
+    tg.showPopup({
+        title: 'Добавлено!',
+        message: `${productName} в корзине. Всего товаров: ${cart.length}`,
+        buttons: [{type: 'ok'}]
+    });
 }
 
 // Контакты в меню
